@@ -37,8 +37,8 @@ with open(wordlist) as f:
             print(f"Status: {resp.status_code}, Final URL: {resp.url}")
             print("Cookies:", session.cookies.get_dict())
 
-            # সফল লগইন চেক
-            if resp.url.endswith("/job") or "session" in session.cookies.get_dict():
+            # এখানে চেক করবো ইরোর মেসেজ "Email/Password don't matched!" আছে কিনা
+            if "Email/Password don't matched!" not in resp.text:
                 print(f"[✅] Valid password found: {pwd}")
                 break
             else:
