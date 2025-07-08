@@ -41,7 +41,8 @@ with open(wordlist) as f:
             if resp.url.endswith("/job") or "session" in session.cookies.get_dict():
     print(f"[✅] Valid password found: {pwd}")
     break
-print(f"[-] Invalid: {pwd}")
+else:
+    print(f"[-] Invalid: {pwd}")
                 snippet = resp.text[:300].replace("\n", " ")
                 print("[Snippet]:", snippet[:300])
 
